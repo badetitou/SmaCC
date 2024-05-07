@@ -1,16 +1,16 @@
-Extension { #name : #RBNamespace }
+Extension { #name : 'RBNamespace' }
 
-{ #category : #'*SmaCC_Development' }
-RBNamespace >> smaccDefineTrait: aString [
+{ #category : '*SmaCC_Development' }
+RBNamespace >> smaccDefineTrait: aBuilderBlock [
 	| change newClass newClassName |
-	change := changes defineClass: aString.
+	change := changes defineClass: aBuilderBlock.
 	newClassName := change changeClassName.
-	newClass := self classNamed: newClassName.
+	newClass := self classNamed: newClassName. 
 	newClass
 		ifNil: [ | newMetaclass |
 			self unmarkAsRemoved: newClassName.
-			newClass := modelFactory rbClass named: newClassName.
-			newMetaclass := modelFactory rbMetaclass named: newClassName.
+			newClass := self rbTraitClass named: newClassName.
+			newMetaclass := self rbTraitedMetaclassClass named: newClassName.
 			newClass model: self.
 			newMetaclass model: self.
 			newClasses
@@ -22,6 +22,6 @@ RBNamespace >> smaccDefineTrait: aString [
 	newClass instanceVariableNames: #().
 	newClass classVariableNames: #().
 	newClass poolDictionaryNames: #().
-	newClass category: change category.
+	newClass packageName: change package.
 	^ change
 ]

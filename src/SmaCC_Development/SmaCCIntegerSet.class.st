@@ -1,28 +1,30 @@
 Class {
-	#name : #SmaCCIntegerSet,
-	#superclass : #Collection,
+	#name : 'SmaCCIntegerSet',
+	#superclass : 'Collection',
 	#instVars : [
 		'start',
 		'run',
 		'data',
 		'normalized'
 	],
-	#category : #'SmaCC_Development-Collections'
+	#category : 'SmaCC_Development-Collections',
+	#package : 'SmaCC_Development',
+	#tag : 'Collections'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCIntegerSet class >> new: aSize [
 	^ self new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCIntegerSet class >> withAll: aCollection [
 	self == aCollection class
 		ifTrue: [ ^ aCollection copy ].
 	^ super withAll: aCollection
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCIntegerSet >> < aSmaCCIntegerCollection [
 	| otherData otherRun myData myRun compare |
 	self isEmpty
@@ -55,12 +57,12 @@ SmaCCIntegerSet >> < aSmaCCIntegerCollection [
 	^ false
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCIntegerSet >> <= aSmaCCIntegerCollection [
 	^ (aSmaCCIntegerCollection < self) not
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCIntegerSet >> = anObject [
 	self class = anObject class
 		ifFalse: [ ^ false ].
@@ -69,17 +71,17 @@ SmaCCIntegerSet >> = anObject [
 	^ self start = anObject start and: [ self run = anObject run and: [ self data = anObject data ] ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCIntegerSet >> > aSmaCCIntegerCollection [
 	^ aSmaCCIntegerCollection < self
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCIntegerSet >> >= aSmaCCIntegerCollection [
 	^ (self < aSmaCCIntegerCollection) not
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 SmaCCIntegerSet >> add: anInteger [
 	| newData |
 	[ anInteger < start ]
@@ -108,7 +110,7 @@ SmaCCIntegerSet >> add: anInteger [
 	^ anInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> add: anInteger to: currentData startingAt: currentStart withRun: currentRun [
 	| newData isBits offset value |
 	currentData == 1
@@ -138,7 +140,7 @@ SmaCCIntegerSet >> add: anInteger to: currentData startingAt: currentStart withR
 				ifFalse: [ newData ] ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 SmaCCIntegerSet >> addAll: aCollection [
 	| otherData otherRun tempData |
 	(self class == aCollection class and: [ start = aCollection start ])
@@ -163,12 +165,12 @@ SmaCCIntegerSet >> addAll: aCollection [
 	^ aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> byteSize [
 	^ 8
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> compareByte: myByte to: otherByte hasMore: aBlock [
 	| mine other |
 	myByte == otherByte
@@ -195,7 +197,7 @@ SmaCCIntegerSet >> compareByte: myByte to: otherByte hasMore: aBlock [
 				ifFalse: [ -1 ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> compareData: myData to: otherData hasMore: aBlock [
 	| value |
 	myData == 0
@@ -252,7 +254,7 @@ SmaCCIntegerSet >> compareData: myData to: otherData hasMore: aBlock [
 	^ 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> copyData: anObject [
 	| copy |
 	^ (anObject isKindOf: Collection)
@@ -263,7 +265,7 @@ SmaCCIntegerSet >> copyData: anObject [
 		ifFalse: [ anObject ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> countBits: anInteger [
 	| count current |
 	count := 0.
@@ -275,17 +277,17 @@ SmaCCIntegerSet >> countBits: anInteger [
 	^ count
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> data [
 	^ data
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> defaultRunSize [
 	^ 32
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SmaCCIntegerSet >> do: aBlock [
 	self
 		do: aBlock
@@ -294,7 +296,7 @@ SmaCCIntegerSet >> do: aBlock [
 		withRun: run
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> do: aBlock over: currentData startingAt: currentStart withRun: currentRun [
 	| index offset nextRun |
 	currentData == 0
@@ -332,7 +334,7 @@ SmaCCIntegerSet >> do: aBlock over: currentData startingAt: currentStart withRun
 			index := index + currentRun ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> endsWithZeros: aCollection [
 	| index isBytes all value |
 	isBytes := aCollection isKindOf: ByteArray.
@@ -354,24 +356,24 @@ SmaCCIntegerSet >> endsWithZeros: aCollection [
 		ifFalse: [ self endsWithZeros: value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCIntegerSet >> first [
 	self do: [ :each | ^ each ].
 	self error: 'Collection is empty'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> hasMore: aCollection after: index [
 	^ ((index + 1 to: aCollection size) allSatisfy: [ :i | (aCollection at: i) == 0 ]) not
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 SmaCCIntegerSet >> hash [
 	self normalize.
 	^ data hash hashMultiply bitXor: self size hash
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCIntegerSet >> includes: anInteger [
 	anInteger < start
 		ifTrue: [ ^ false ].
@@ -384,7 +386,7 @@ SmaCCIntegerSet >> includes: anInteger [
 		withRun: run
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> includes: anInteger in: currentData startingAt: currentStart withRun: currentRun [
 	| isBits offset |
 	currentData == 1
@@ -402,7 +404,7 @@ SmaCCIntegerSet >> includes: anInteger in: currentData startingAt: currentStart 
 				withRun: (self nextRunFrom: currentRun) ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 SmaCCIntegerSet >> initialize [
 	start := 0.
 	run := self byteSize.
@@ -410,7 +412,7 @@ SmaCCIntegerSet >> initialize [
 	normalized := true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> intersect: myData with: otherData [
 	| value includeNone |
 	(myData == 0 or: [ otherData == 1 ])
@@ -430,7 +432,7 @@ SmaCCIntegerSet >> intersect: myData with: otherData [
 	^ myData
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> invertData: otherData [
 	otherData == 0
 		ifTrue: [ ^ 1 ].
@@ -441,13 +443,13 @@ SmaCCIntegerSet >> invertData: otherData [
 		ifFalse: [ otherData collect: [ :each | self invertData: each ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SmaCCIntegerSet >> isEmpty [
 	self normalize.
 	^ data == 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> merge: myData with: otherData [
 	| value includeAll |
 	(myData == 0 or: [ otherData == 1 ])
@@ -467,12 +469,12 @@ SmaCCIntegerSet >> merge: myData with: otherData [
 	^ myData
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> nextRunFrom: currentRun [
 	^ currentRun // self defaultRunSize
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 SmaCCIntegerSet >> normalize [
 	normalized
 		ifTrue: [ ^ self ].
@@ -491,7 +493,7 @@ SmaCCIntegerSet >> normalize [
 	run := self nextRunFrom: run ] repeat
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> normalizeData: oldData [
 	| value allAreIntegers |
 	(oldData isKindOf: ByteArray)
@@ -515,13 +517,13 @@ SmaCCIntegerSet >> normalizeData: oldData [
 	^ oldData
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 SmaCCIntegerSet >> postCopy [
 	super postCopy.
 	data := self copyData: data
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> privateIntersect: aCollection [
 	| otherRun otherData |
 	otherRun := aCollection run.
@@ -537,14 +539,14 @@ SmaCCIntegerSet >> privateIntersect: aCollection [
 	^ self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> reduceData: myData [
 	^ myData isInteger
 		ifTrue: [ myData ]
 		ifFalse: [ myData first ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> remove: anInteger from: currentData startingAt: currentStart withRun: currentRun [
 	| newData isBits offset value |
 	currentData == 0
@@ -571,7 +573,7 @@ SmaCCIntegerSet >> remove: anInteger from: currentData startingAt: currentStart 
 		ifFalse: [ newData ]
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 SmaCCIntegerSet >> remove: anInteger ifAbsent: aBlock [
 	(self includes: anInteger)
 		ifFalse: [ ^ aBlock value ].
@@ -584,7 +586,7 @@ SmaCCIntegerSet >> remove: anInteger ifAbsent: aBlock [
 	^ anInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> removeData: otherData from: myData [
 	| includeNone value |
 	(myData == 0 or: [ otherData == 1 ])
@@ -606,12 +608,12 @@ SmaCCIntegerSet >> removeData: otherData from: myData [
 	^ myData
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> run [
 	^ run
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SmaCCIntegerSet >> select: aBlock [
 	| selected |
 	selected := self copy.
@@ -623,12 +625,12 @@ SmaCCIntegerSet >> select: aBlock [
 	^ selected
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCIntegerSet >> size [
 	^ self sizeOf: data withRun: run
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> sizeOf: currentData withRun: currentRun [
 	| nextRun |
 	currentData == 0
@@ -641,7 +643,7 @@ SmaCCIntegerSet >> sizeOf: currentData withRun: currentRun [
 			^ currentData inject: 0 into: [ :sum :each | sum + (self sizeOf: each withRun: nextRun) ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SmaCCIntegerSet >> smaccIntersect: aCollection [
 	aCollection class == self class
 		ifFalse: [ ^ super smaccIntersect: aCollection ].
@@ -654,7 +656,7 @@ SmaCCIntegerSet >> smaccIntersect: aCollection [
 	^ self copy privateIntersect: aCollection
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 SmaCCIntegerSet >> smaccRemoveAll: aCollection [
 	| otherRun otherData tempData |
 	self class == aCollection class
@@ -676,7 +678,7 @@ SmaCCIntegerSet >> smaccRemoveAll: aCollection [
 	^ aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCIntegerSet >> start [
 	^ start
 ]

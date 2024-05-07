@@ -1,41 +1,43 @@
 Class {
-	#name : #SmaCCReferenceRENode,
-	#superclass : #SmaCCRegularExpressionNode,
+	#name : 'SmaCCReferenceRENode',
+	#superclass : 'SmaCCRegularExpressionNode',
 	#instVars : [
 		'regexNode',
 		'creationBlock'
 	],
-	#category : #'SmaCC_Development-Regular Expressions'
+	#category : 'SmaCC_Development-Regular Expressions',
+	#package : 'SmaCC_Development',
+	#tag : 'Regular Expressions'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SmaCCReferenceRENode class >> creationBlock: aBlock [
 	^ self new
 		creationBlock: aBlock;
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCReferenceRENode >> asNFAStartingWith: aSmaCCNode [
 	^ self regexNode asNFAStartingWith: aSmaCCNode
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 SmaCCReferenceRENode >> creationBlock: aBlock [
 	creationBlock := aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCReferenceRENode >> possibleMatchesDo: aBlock on: aStream [
 	^ self regexNode possibleMatchesDo: aBlock on: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SmaCCReferenceRENode >> possibleMatchesSize [
 	^ self regexNode possibleMatchesSize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SmaCCReferenceRENode >> regexNode [
 	regexNode isNil
 		ifTrue: [ regexNode := creationBlock value copy.
