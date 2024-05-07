@@ -426,8 +426,9 @@ SmaCCSmalltalkCodeGenerator >> compileOptimizedMethodIn: modelClass [
 	self compileScannerTree: tree into: modelClass
 ]
 
-{ #category : 'compiling-parser' }
+{ #category : 'compiling' }
 SmaCCSmalltalkCodeGenerator >> compileScannerClassIntoParser [
+
 	| stream |
 	stream := WriteStream with: String new.
 	stream
@@ -436,7 +437,7 @@ SmaCCSmalltalkCodeGenerator >> compileScannerClassIntoParser [
 		tab;
 		nextPutAll: '^';
 		nextPutAll: scannerClass name.
-	parserClass theMetaClass
+	parserClass classSide
 		compile: stream contents
 		classified: #'generated-accessing'
 ]
